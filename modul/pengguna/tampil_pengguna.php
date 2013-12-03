@@ -39,14 +39,14 @@
             else if($result == 'success_u'){
                 ?>
                 <div class="alert alert-success">
-                    <strong>Berhasil ubah modul.</strong>
+                    <strong>Berhasil ubah pengguna.</strong>
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                 </div>
             <?php
             } else if($result == 'failed_u'){
                 ?>
                 <div class="alert alert-error">
-                    <strong>Gagal ubah modul!</strong>
+                    <strong>Gagal ubah pengguna!</strong>
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                 </div>
             <?php

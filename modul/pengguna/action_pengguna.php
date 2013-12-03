@@ -9,6 +9,7 @@ include("../../lib_php/connection.php");
  */
 $action = "";
 $id_user = "";
+$id_user_baru = "";
 $nama_user = "";
 $password = "";
 $hak_akses = "";
@@ -19,6 +20,10 @@ if(isset($_GET['action'])){
 
 if(isset($_GET['id_user'])){
     $id_user = $_GET['id_user'];
+}
+
+if(isset($_GET['id_user_baru'])){
+    $id_user_baru = $_GET['id_user_baru'];
 }
 
 if(isset($_GET['nama_user'])){
@@ -55,9 +60,29 @@ function hapus_user($id_user){
     }
 }
 
+function ubah_user($id_user, $id_user_baru, $nama_user, $password, $hak_akses){
+    if($id_user == "" || $nama_user == "" || $hak_akses == ""){
+        header("location:../../index.php?modul=pengguna&submodul=ubah_pengguna&id_user=".$id_user."&result=failed_h");
+        return;
+    }
+
+    if($password != ""){
+        $update = mysql_query("UPDATE user SET id_user = '$id_user_baru', nama = '$nama_user', password = md5('$password'), hak_akses = '$hak_akses' WHERE id_user = '$id_user'");
+    } else {
+        $update = mysql_query("UPDATE user SET id_user = '$id_user_baru', nama = '$nama_user', hak_akses = '$hak_akses' WHERE id_user = '$id_user'");
+    }
+    if($update){
+        header("location:../../index.php?modul=pengguna&submodul=tampil_pengguna&id_user=".$id_user."&result=success_u");
+    } else {
+        header("location:../../index.php?modul=pengguna&submodul=ubah_pengguna&id_user=".$id_user."&result=failed_h");
+    }
+}
+
 if($action == "tambah_user"){
     tambah_user($id_user,$nama_user,$password,$hak_akses);
 } else if($action == "hapus_user"){
     hapus_user($id_user);
+} else if($action == "ubah_user"){
+    ubah_user($id_user,$id_user_baru,$nama_user,$password,$hak_akses);
 }
 ?>
