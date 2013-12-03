@@ -38,7 +38,7 @@ function tambah_user($id_user, $nama_user, $password, $hak_akses){
         header("location:../../index.php?modul=pengguna&submodul=tambah_pengguna&result=failed_h");
         return;
     }
-    $insert = mysql_query("INSERT INTO user VALUES('$id_user','$nama_user','$hak_akses','$password')");
+    $insert = mysql_query("INSERT INTO user VALUES('$id_user','$nama_user','$hak_akses',md5('$password'))");
     if($insert){
         header("location:../../index.php?modul=pengguna&submodul=tambah_pengguna&result=success_h");
     } else {
@@ -46,7 +46,18 @@ function tambah_user($id_user, $nama_user, $password, $hak_akses){
     }
 }
 
+function hapus_user($id_user){
+    $delete = mysql_query("DELETE FROM user WHERE id_user = '$id_user'");
+    if($delete){
+        header("location:../../index.php?modul=pengguna&submodul=tampil_pengguna&result=success_h");
+    } else {
+        header("location:../../index.php?modul=pengguna&submodul=tampil_pengguna&result=failed_h");
+    }
+}
+
 if($action == "tambah_user"){
     tambah_user($id_user,$nama_user,$password,$hak_akses);
+} else if($action == "hapus_user"){
+    hapus_user($id_user);
 }
 ?>
