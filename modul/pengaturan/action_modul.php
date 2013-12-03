@@ -65,8 +65,8 @@ function simpan_submodul($nama_submodul,$link,$hak_akses,$publish,$id_admin,$id_
         $data = fread($file,100000);
         fclose($file);
         $nama_modul = mysql_fetch_row(mysql_query("SELECT nama_modul FROM modul WHERE id_modul = '$id_modul'"));
-        if(!file_exists("../".$nama_modul[0]."/".strtolower(str_replace(' ','_',$nama_submodul)).".php")){
-            $file = fopen("../".$nama_modul[0]."/".strtolower(str_replace(' ','_',$nama_submodul)).".php","w");
+        if(!file_exists("../".strtolower(str_replace(' ','_',$nama_modul[0]))."/".strtolower(str_replace(' ','_',$nama_submodul)).".php")){
+            $file = fopen("../".strtolower(str_replace(' ','_',$nama_modul[0]))."/".strtolower(str_replace(' ','_',$nama_submodul)).".php","w");
             fwrite($file,str_replace('(SUBMODUL)',$nama_submodul,$data));
             fclose($file);
         }
