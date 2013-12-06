@@ -1,6 +1,15 @@
+<?php
+$id_user = "";
+if(isset($_GET['id_user'])){
+    $id_user = $_GET['id_user'];
+}
+
+$select = mysql_query("SELECT * FROM user WHERE id_user = '$id_user'");
+$data = mysql_fetch_array($select);
+?>
 <div class="head">
     <div class="info">
-        <h1>Tambah Pengguna</h1>
+        <h1>Ubah Pengguna</h1>
     </div>
 
     <div class="search">
@@ -24,14 +33,14 @@
             if($result == 'success_h'){
                 ?>
                 <div class="alert alert-success">
-                    <strong>Berhasil tambah pengguna.</strong>
+                    <strong>Berhasil ubah pengguna.</strong>
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                 </div>
             <?php
             } else if($result == 'failed_h'){
                 ?>
                 <div class="alert alert-error">
-                    <strong>Gagal tambah pengguna!</strong>
+                    <strong>Gagal ubah pengguna!</strong>
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                 </div>
             <?php
@@ -41,18 +50,19 @@
             <form action="modul/pengguna/action_pengguna.php" method="get">
                 <div class="block">
                     <div class="head">
-                        <h2>Form Tambah Pengguna</h2>
+                        <h2>Form Ubah Pengguna</h2>
                     </div>
                     <div class="content np">
-                        <input type="hidden" name="action" value="tambah_user">
+                        <input type="hidden" name="id_user" value="<?php echo $data[0] ?>">
+                        <input type="hidden" name="action" value="ubah_user">
                         <div class="controls-row">
                             <div class="span3">ID Pengguna</div>
-                            <div class="span9"><input type="text" name="id_user" placeholder="ID Pengguna"/></div>
+                            <div class="span9"><input type="text" name="id_user_baru" value="<?php echo $data[0] ?>" placeholder="ID Pengguna"/></div>
                         </div>
                         <div class="controls-row">
                             <div class="span3">Nama Pengguna</div>
                             <div class="span9">
-                                <input type="text" name="nama_user" placeholder="Nama Pengguna"/>
+                                <input type="text" name="nama_user" value="<?php echo $data[1] ?>" placeholder="Nama Pengguna"/>
                             </div>
                         </div>
                         <div class="controls-row">
@@ -64,8 +74,8 @@
                         <div class="controls-row">
                             <div class="span3">Hak Akses</div>
                             <div class="span9">
-                                <label class="radio-uni inline"><input type="radio" name="hak_akses" value="super" class="uni" checked="checked"/> Super Admin</label>
-                                <label class="radio-uni inline"><input type="radio" name="hak_akses" value="admin" class="uni"/> Admin</label>
+                                <label class="radio-uni inline"><input type="radio" name="hak_akses" value="super" class="uni" <?php if($data[2] == "super") echo 'checked="checked"';?>/> Super Admin</label>
+                                <label class="radio-uni inline"><input type="radio" name="hak_akses" value="admin" class="uni" <?php if($data[2] == "admin") echo 'checked="checked"';?>/> Admin</label>
                             </div>
                         </div>
 
