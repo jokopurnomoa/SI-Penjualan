@@ -45,3 +45,4 @@
 <script type='text/javascript' src='js/charts.js'></script>
 
 <script type='text/javascript' src='lib_js/pengaturan.js'></script>
+<script type='text/javascript' src='lib_js/transaksi_jual.js'></script>
