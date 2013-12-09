@@ -1,3 +1,9 @@
+<?php
+$no_transaksi_am = "";
+if(isset($_GET['no_transaksi'])){
+$no_transaksi_am = $_GET['no_transaksi'];
+}
+?>
 <div class="head">
     <div class="info">
         <h1>Tambah Transaksi</h1>
@@ -51,8 +57,11 @@
                     <h2>Form Tambah Transaksi Penjualan</h2>
                 </div>
                 <div class="content np">
-                    <input type="hidden" name="action" value="tambah_transaksi_jual">
-                    
+                    <input type="hidden" name="action" value="tambah_detail_transaksi">
+                    <div class="controls-row">
+                        <div class="span3">No. Transaksi</div>
+                        <div class="span9"><?php echo $no_transaksi_am ?></div>
+                    </div>
                     <div class="controls-row">
                         <div class="span3">Barang</div>
                         <div class="span9">
@@ -88,7 +97,7 @@
                                             <li><a href="#" class="block_remove"><span class="i-cancel-2"></span></a></li>
                                         </ul>                                        
                                     </div>
-                                    <input type="hidden" name="action" value="simpan_transaksi_jual">
+                                    <input type="hidden" name="action" value="simpan_detail_transaksi">
                                     <div class="content np">
                                         
                                         <table cellpadding="0" cellspacing="0" width="100%">

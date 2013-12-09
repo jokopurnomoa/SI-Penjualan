@@ -1,6 +1,6 @@
 <div class="head">
     <div class="info">
-        <h1>Detail Transaksi Penjualan</h1>
+        <h1>Tambah Transaksi</h1>
     </div>
 
     <div class="search">
@@ -13,47 +13,72 @@
 </div>
 <div class="content">
     <div class="row-fluid">
-
-        <div class="span12">
-            
+        <!-- Code Here -->
+<div class="span8">
             <?php
             $result = "";
             if(isset($_GET['result'])){
                 $result = $_GET['result'];
             }
 
-            if($result == 'success_h'){
-                ?>
-                <div class="alert alert-success">
-                    <strong>Berhasil hapus detail transaksi jual.</strong>
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                </div>
+            if($result == 'success'){
+            ?>
+            <div class="alert alert-success">
+                <strong>Berhasil tambah transaksi penjualan.</strong>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
             <?php
-            } else if($result == 'failed_h'){
-                ?>
-                <div class="alert alert-error">
-                    <strong>Gagal hapus detail transaksi jual!</strong>
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                </div>
+            } else if($result == 'failed'){
+            ?>
+            <div class="alert alert-error">
+                <strong>Gagal tambah transaksi penjualan !</strong>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
             <?php
-            }
-            else if($result == 'success_u'){
-                ?>
-                <div class="alert alert-success">
-                    <strong>Berhasil ubah detail transaksi jual.</strong>
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                </div>
-            <?php
-            } else if($result == 'failed_u'){
-                ?>
-                <div class="alert alert-error">
-                    <strong>Gagal ubah detail transaksi jual!</strong>
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                </div>
+            } else if($result == 'failed_j'){
+            ?>
+            <div class="alert alert-error">
+                <strong>Barang tidak cukup !</strong>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
             <?php
             }
             ?>
 
+            <form action="modul/transaksi_penjualan/action_penjualan.php" method="get" enctype="multipart/form-data">
+            <div class="block">
+                <div class="head">
+                    <h2>Form Tambah Transaksi Penjualan</h2>
+                </div>
+                <div class="content np">
+                    <input type="hidden" name="action" value="tambah_transaksi_jual">
+                    
+                    <div class="controls-row">
+                        <div class="span3">Barang</div>
+                        <div class="span9">
+                            <select class="select2" style="width: 220px;" name="kode_barang">
+                                <?php
+                                $query = mysql_query("SELECT kode_barang,nama_barang FROM barang");
+                                while($data = mysql_fetch_array($query)){
+                                    echo '<option value="'.$data['kode_barang'].'">'.$data['nama_barang'].'</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="controls-row">
+                        <div class="span3">Jumlah</div>
+                        <div class="span9"><input type="text" name="jumlah" placeholder="Jumlah Beli"/></div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="side fr">
+                        <input type="submit" class="btn btn-primary" value="Tambah">
+                    </div>
+                </div>
+            </div>
+            </form>
+            <form action="modul/transaksi_penjualan/action_penjualan.php" method="get" enctype="multipart/form-data">
             <div class="block">
                 <div class="head">
                     <h2>Tabel Detail Transaksi Penjualan</h2>
@@ -107,15 +132,12 @@
                         ?>
                         </tbody>
                     </table>
-                    <div class="footer">
-                    <div class="side fr">
-                        <a href="index.php?modul=transaksi_penjualan&submodul=tambah_detail_transaksi&no_transaksi=<?php echo $no_transaksi_am ?>" class="btn btn-primary" type="button" style="padding: 4px 15px 4px 15px">Tambah</a>
-                    </div>
-                </div>
+
                 </div>
 
             </div>
-
+            </form>
         </div>
+
     </div>
 </div>

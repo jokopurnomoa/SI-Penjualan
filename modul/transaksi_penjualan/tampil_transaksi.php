@@ -91,7 +91,6 @@
                             echo '<td>'.$data[1].'</td>';
                             echo '<td>'.$data[5].'</td>';
                             echo '<td>
-                                <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=tambah_transaksi&no_transaksi='.$data[0].'"><img src="img/icons/highlighter-color.png">Ubah</a>
                                 <a style="cursor: pointer" onclick=hapusTransaksiJual("'.$data[0].'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
                                 <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi='.$data[0].'"><img src="img/filetree/application.png">Detail</a>
                             </td>';
