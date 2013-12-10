@@ -85,7 +85,7 @@
 
                         $select = mysql_query("SELECT transaksi_jual.`no_transaksi`,barang.`nama_barang`, transaksi_jual.`tanggal_transaksi`, 
                         detail_transaksi_jual.`jumlah_beli`, detail_transaksi_jual.`harga`, 
-                        detail_transaksi_jual.`diskon`, detail_transaksi_jual.`id`
+                        detail_transaksi_jual.`diskon`, detail_transaksi_jual.`id`, barang.`kode_barang`
                         FROM transaksi_jual 
                         JOIN detail_transaksi_jual USING(no_transaksi)
                         JOIN barang USING(kode_barang)
@@ -99,7 +99,7 @@
                             echo '<td>Rp. '.$data[4].'</td>';
                             echo '<td>'.$data[5].'</td>';
                             echo '<td>
-                                <a style="cursor: pointer" onclick=hapusDetailTransaksiJual("'.$data[6].'","'.$data[0].'","'.str_replace(' ','_',$data[1]).'")><img src="img/icons/cross-script.png">Hapus</a>
+                                <a style="cursor: pointer" onclick=hapusDetailTransaksiJual("'.$data[6].'","'.$data[0].'","'.$data[3].'","'.$data[7].'","'.str_replace(' ','_',$data[1]).'")><img src="img/icons/cross-script.png">Hapus</a>
                             </td>';
                             echo '</tr>';
                         }

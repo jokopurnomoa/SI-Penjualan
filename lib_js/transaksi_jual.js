@@ -3,9 +3,9 @@ function hapusTransaksiJual(id,isdel){
         document.location.href="modul/transaksi_penjualan/action_penjualan.php?action=hapus_transaksi&no_transaksi="+id;
 }
 
-function hapusDetailTransaksiJual(id,no_transaksi,nama_barang,isdel){
+function hapusDetailTransaksiJual(id,no_transaksi,jumlah,kode_barang,nama_barang,isdel){
 	if(confirm("Apakah pembelian \""+nama_barang.replace('_',' ')+"\" akan dihapus?"))
-        document.location.href="modul/transaksi_penjualan/action_penjualan.php?action=hapus_detail_transaksi_jual&id="+id+"&no_transaksi="+no_transaksi;
+        document.location.href="modul/transaksi_penjualan/action_penjualan.php?action=hapus_detail_transaksi_jual&id="+id+"&jumlah="+jumlah+"&kode_barang="+kode_barang+"&no_transaksi="+no_transaksi;
 }
 
 function hapusTambahTransaksi(id,jumlah,kode_barang,nama_barang,isdel){

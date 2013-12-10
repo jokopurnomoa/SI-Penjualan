@@ -87,14 +87,26 @@ function hapus_tambah_transaksi($id, $jumlah, $kode_barang, $submodul){
 #/////////////////////AKHIR TAMBAH TRANSAKSI JUAL/////////////////////////
 
 #/////////////////////DETAIL TRANSAKSI JUAL/////////////////////////
-function hapus_detail_transaksi_jual($id,$no_transaksi){
+function hapus_detail_transaksi_jual($id,$no_transaksi,$jumlah,$kode_barang){
     $delete = mysql_query("DELETE FROM detail_transaksi_jual WHERE id = '$id'");
-    $update = mysql_query("UPDATE transaksi_jual SET total_kotor = 
-    (SELECT SUM(jumlah_beli * harga) FROM detail_transaksi_jual WHERE no_transaksi = $no_transaksi),  
-    diskon_total = 
-    (SELECT SUM(jumlah_beli * (harga * diskon)) FROM detail_transaksi_jual WHERE no_transaksi = $no_transaksi),
-    total = total_kotor - diskon_total WHERE no_transaksi = $no_transaksi");
-    if($delete && $update){
+    $check = mysql_query("SELECT * FROM detail_transaksi_jual where no_transaksi = $no_transaksi");
+    $data_check = mysql_fetch_array($check);
+    if($data_check == null)
+    {
+        $update = mysql_query("UPDATE transaksi_jual SET total_kotor = 0,  
+        diskon_total = 0,
+        total = 0 WHERE no_transaksi = $no_transaksi");
+    }
+    else
+    {
+        $update = mysql_query("UPDATE transaksi_jual SET total_kotor = 
+        (SELECT SUM(jumlah_beli * harga) FROM detail_transaksi_jual WHERE no_transaksi = $no_transaksi),  
+        diskon_total = 
+        (SELECT SUM(jumlah_beli * (harga * diskon)) FROM detail_transaksi_jual WHERE no_transaksi = $no_transaksi),
+        total = total_kotor - diskon_total WHERE no_transaksi = $no_transaksi");
+    }
+    $update_barang = mysql_query("UPDATE barang SET jumlah = jumlah + $jumlah where kode_barang = '$kode_barang'");
+    if($delete && $update && $update_barang){
         header("location:../../index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi=$no_transaksi&result=success_h");
     } else {
         header("location:../../index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi=$no_transaksi&result=failed_h");
@@ -105,7 +117,7 @@ function tambah_detail_transaksi($kode_barang,$jumlah,$no_transaksi){
     $check = mysql_query("SELECT jumlah FROM barang WHERE kode_barang = '$kode_barang'");
     $data_check = mysql_fetch_array($check);
     if ($data_check[0] < $jumlah) {
-        header("location:../../index.php?modul=transaksi_penjualan&submodul=tambah_transaksi&result=failed_j");
+        header("location:../../index.php?modul=transaksi_penjualan&submodul=tambah_detail_transaksi&result=failed_j&no_transaksi=$no_transaksi");
     }
     else
     {
@@ -168,7 +180,7 @@ if($action_am == "tambah_transaksi_jual"){
 }else if($action_am == "hapus_transaksi"){
     hapus_transaksi($no_transaksi_jual_am);
 }else if($action_am == "hapus_detail_transaksi_jual"){
-    hapus_detail_transaksi_jual($id_am,$no_transaksi_jual_am);
+    hapus_detail_transaksi_jual($id_am,$no_transaksi_jual_am,$jumlah_am,$kode_barang_am);
 }else if ($action_am == "ubah_detail_transaksi_jual") {
     ubah_detail_transaksi_jual();
 }else if ($action_am == "hapus_tambah_transaksi") {
