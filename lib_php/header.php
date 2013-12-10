@@ -61,34 +61,12 @@
                 </a>
             </div>
             <div class="item">
-                <a href="#" class="btn btn-primary btn-small">
-                    <span class="i-chat"></span>
-                </a>
-                <div class="popup">
-                    <div class="head">
-                        <h2>Messages</h2>
-                    </div>
-                    <div class="content npb messages minify" id="messages"></div>
-                    <div class="footer">
-                        <div class="side fl">
-                            <button class="btn btn-link">Show all</button>
-                        </div>
-                        <div class="side fr">
-                            <button class="btn btn-primary popup-close">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
                 <div class="btn-group">
                     <a href="#" class="btn btn-primary btn-small dropdown-toggle" data-toggle="dropdown">
                         <span class="i-forward"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><span class="i-profile"></span> Profile</a></li>
-                        <li><a href="#"><span class="i-tools"></span> Controls</a></li>
-                        <li><a href="#"><span class="i-locked"></span> Lock</a></li>
-                        <li><a href="#"><span class="i-forward"></span> Logout</a></li>
+                        <li><a href="lib_php/logout.php"><span class="i-forward"></span> Logout</a></li>
                     </ul>
                 </div>
             </div>
