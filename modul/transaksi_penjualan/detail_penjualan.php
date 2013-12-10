@@ -4,8 +4,8 @@
     </div>
 
     <div class="search">
-        <form action="#" method="post">
-            <input type="text" placeholder="search..."/>
+        <form action="index.php?modul=transaksi_penjualan&submodul=cari_detail_penjualan&cari=32" method="get" enctype="multipart/form-data">
+            <input type="text" name="cari" placeholder="search..."/>
             <button type="submit"><span class="i-calendar"></span></button>
             <button type="submit"><span class="i-magnifier"></span></button>
         </form>
@@ -68,10 +68,10 @@
                     <table cellpadding="0" cellspacing="0" width="100%" class="simple_sort">
                         <thead>
                         <tr>
-                            <th width="15%">Barang</th>
-                            <th width="10%">Tanggal Transaksi</th>
-                            <th width="10%">Jumlah</th>
-                            <th width="10%">Harga</th>
+                            <th width="10%">No. Transaksi</th>
+                            <th width="15%">Nama Barang</th>
+                            <th width="7%">Jumlah</th>
+                            <th width="15%">Harga</th>
                             <th width="10%">Diskon</th>
                             <th width="10%">Aksi</th>
                         </tr>
@@ -93,8 +93,8 @@
 
                         while($data = mysql_fetch_array($select)){
                             echo '<tr>';
+                            echo '<td>'.$data[0].'</td>';
                             echo '<td>'.$data[1].'</td>';
-                            echo '<td>'.$data[2].'</td>';
                             echo '<td>'.$data[3].'</td>';
                             echo '<td>Rp. '.$data[4].'</td>';
                             echo '<td>'.$data[5].'</td>';

@@ -2,14 +2,19 @@
     <div class="info">
         <h1>Tampil Transaksi</h1>
     </div>
-
-    <div class="search">
-        <form action="#" method="post">
-            <input type="text" placeholder="search..."/>
-            <button type="submit"><span class="i-calendar"></span></button>
-            <button type="submit"><span class="i-magnifier"></span></button>
-        </form>
-    </div>
+        <form method="POST" action="#">
+        <div class="search">
+            <input type="text" name="cari" id="search" placeholder="Cari"/>
+            <input type="text" name="tanggal" class="datepicker" placeholder="Tanggal"/>
+            <select class="select2" style="width: 220px;" name="kategori" placeholder="Urutkan Berdasarkan"/>
+                <option value="kosong"></option>
+                <option value="no_transaksi">No. Transaksi</option>
+                <option value="id_user">User</option>
+                <option value="tanggal_transaksi">Tanggal</option>
+            </select>
+            <input type="submit" class="btn btn-primary" value="Cari">
+        </div>
+    </form>
 </div>
 <div class="content">
     <div class="row-fluid">
@@ -79,8 +84,43 @@
                         </thead>
                         <tbody>
                         <?php
-                        $select = mysql_query("SELECT * FROM transaksi_jual");
                         $i = 1;
+                        if(isset($_POST['cari']) && isset($_POST['tanggal'])){
+                                $cari = $_POST['cari'];
+                                $tanggal = $_POST['tanggal'];
+                                $select = mysql_query("SELECT * FROM transaksi_jual WHERE no_transaksi LIKE '%$cari%' ");
+                                if(isset($_POST['kategori'])){
+                                    $kategori = $_POST['kategori'];
+                                    if($kategori == "kosong" ){
+                                        $select = mysql_query("SELECT * FROM transaksi_jual WHERE no_transaksi LIKE '%$cari%' ");
+                                    }else if($kategori == "tanggal_transaksi" ){
+                                        $select = mysql_query("SELECT * FROM transaksi_jual WHERE DATE_FORMAT(`tanggal_transaksi`, '%m/%d/%Y') LIKE '%$tanggal%'");
+                                    }
+                                    else{
+                                        $select = mysql_query("SELECT * FROM transaksi_jual where $kategori LIKE '%$cari%'");
+                                    }
+
+                                }
+                                while($data = mysql_fetch_array($select)){
+                                    echo '<tr>';
+                                    echo '<td>'.$i.'</td>';
+                                    echo '<td>'.$data[0].'</td>';
+                                    echo '<td>Rp. '.$data[2].'</td>';
+                                    echo '<td>Rp. '.$data[3].'</td>';
+                                    echo '<td>Rp. '.$data[4].'</td>';
+                                    echo '<td>'.$data[1].'</td>';
+                                    echo '<td>'.$data[5].'</td>';
+                                    echo '<td>
+                                        <a style="cursor: pointer" onclick=hapusTransaksiJual("'.$data[0].'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
+                                        <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi='.$data[0].'"><img src="img/filetree/application.png">Detail</a>
+                                    </td>';
+                                    echo '</tr>';
+                                    $i++;
+                                }
+                            }
+                            else{
+
+                        $select = mysql_query("SELECT * FROM transaksi_jual");
                         while($data = mysql_fetch_array($select)){
                             echo '<tr>';
                             echo '<td>'.$i.'</td>';
@@ -96,6 +136,7 @@
                             </td>';
                             echo '</tr>';
                             $i++;
+                            }
                         }
                         ?>
                         </tbody>

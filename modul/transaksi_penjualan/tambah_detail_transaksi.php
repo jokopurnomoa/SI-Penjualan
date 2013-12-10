@@ -11,7 +11,7 @@ $no_transaksi_am = $_GET['no_transaksi'];
 
     <div class="search">
         <form action="#" method="post">
-            <input type="text" placeholder="search..."/>
+            <input type="text" nama="cari" value='32' placeholder="search..."/>
             <button type="submit"><span class="i-calendar"></span></button>
             <button type="submit"><span class="i-magnifier"></span></button>
         </form>
