@@ -43,6 +43,7 @@ function tambah_user($id_user, $nama_user, $password, $hak_akses){
         header("location:../../index.php?modul=pengguna&submodul=tambah_pengguna&result=failed_h");
         return;
     }
+    $id_user = str_replace(" ","_",$id_user);
     $insert = mysql_query("INSERT INTO user VALUES('$id_user','$nama_user','$hak_akses',md5('$password'))");
     if($insert){
         header("location:../../index.php?modul=pengguna&submodul=tambah_pengguna&result=success_h");
@@ -66,6 +67,7 @@ function ubah_user($id_user, $id_user_baru, $nama_user, $password, $hak_akses){
         return;
     }
 
+    $id_user_baru = str_replace(" ","_",$id_user_baru);
     if($password != ""){
         $update = mysql_query("UPDATE user SET id_user = '$id_user_baru', nama = '$nama_user', password = md5('$password'), hak_akses = '$hak_akses' WHERE id_user = '$id_user'");
     } else {
