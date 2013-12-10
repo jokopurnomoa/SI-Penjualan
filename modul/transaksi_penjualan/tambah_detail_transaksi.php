@@ -58,6 +58,7 @@ $no_transaksi_am = $_GET['no_transaksi'];
                 </div>
                 <div class="content np">
                     <input type="hidden" name="action" value="tambah_detail_transaksi">
+                    <input type="hidden" name="no_transaksi" value=<?php echo $no_transaksi_am; ?>>
                     <div class="controls-row">
                         <div class="span3">No. Transaksi</div>
                         <div class="span9"><?php echo $no_transaksi_am ?></div>
@@ -97,7 +98,8 @@ $no_transaksi_am = $_GET['no_transaksi'];
                                             <li><a href="#" class="block_remove"><span class="i-cancel-2"></span></a></li>
                                         </ul>                                        
                                     </div>
-                                    <input type="hidden" name="action" value="simpan_detail_transaksi">
+                                    <input type="hidden" name="action" value="simpan_tambah_detail_transaksi">
+                                    <input type="hidden" name="no_transaksi" value=<?php echo $no_transaksi_am; ?>>
                                     <div class="content np">
                                         
                                         <table cellpadding="0" cellspacing="0" width="100%">
@@ -126,7 +128,7 @@ $no_transaksi_am = $_GET['no_transaksi'];
                                                     echo '<td>Rp. '.$data[2].'</td>';
                                                     echo '<td>'.$data[3].'</td>';
                                                     echo '<td>
-                                                        <a style="cursor: pointer" onclick=hapusTambahTransaksi("'.$data[4].'","'.$data[1].'","'.$data[5].'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
+                                                        <a style="cursor: pointer" onclick=hapusTambahDetailTransaksi("'.$data[4].'","'.$data[1].'","'.$data[5].'","'.$no_transaksi_am.'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
                                                     </td>';
                                                     echo '</tr>';
                                                     $i++;

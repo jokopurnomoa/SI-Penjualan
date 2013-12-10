@@ -37,14 +37,14 @@
                 </div>
             <?php
             }
-            else if($result == 'success_u'){
+            else if($result == 'success_t'){
                 ?>
                 <div class="alert alert-success">
                     <strong>Berhasil ubah detail transaksi jual.</strong>
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                 </div>
             <?php
-            } else if($result == 'failed_u'){
+            } else if($result == 'failed_t'){
                 ?>
                 <div class="alert alert-error">
                     <strong>Gagal ubah detail transaksi jual!</strong>
@@ -99,7 +99,6 @@
                             echo '<td>Rp. '.$data[4].'</td>';
                             echo '<td>'.$data[5].'</td>';
                             echo '<td>
-                                <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=tambah_transaksi&no_transaksi='.$data[6].'"><img src="img/icons/highlighter-color.png">Ubah</a>
                                 <a style="cursor: pointer" onclick=hapusDetailTransaksiJual("'.$data[6].'","'.$data[0].'","'.str_replace(' ','_',$data[1]).'")><img src="img/icons/cross-script.png">Hapus</a>
                             </td>';
                             echo '</tr>';
