@@ -42,7 +42,7 @@ function tambah_transaksi_jual($kode_barang,$jumlah){
     }
     else
     {
-        $insert = mysql_query("INSERT INTO temp_transaksi_jual VALUES(null,'$kode_barang',$jumlah,(SELECT harga_jual from barang where kode_barang = '$kode_barang'),0)");
+        $insert = mysql_query("INSERT INTO temp_transaksi_jual VALUES(null,'$kode_barang',$jumlah,(SELECT harga_jual from barang where kode_barang = '$kode_barang'))");
         $update = mysql_query("UPDATE barang SET jumlah = jumlah - $jumlah where kode_barang = '$kode_barang'");
         if($insert && $update){
             header("location:../../index.php?modul=transaksi_penjualan&submodul=tambah_transaksi");
@@ -53,21 +53,15 @@ function tambah_transaksi_jual($kode_barang,$jumlah){
 }
 
 function simpan_transaksi_jual($id_admin){
-    $insert_transaksi = mysql_query("INSERT INTO transaksi_jual VALUES (null,date(now()),0,0,0,'$id_admin')");
-    $insert_detail = mysql_query("INSERT INTO detail_transaksi_jual (kode_barang,jumlah_beli,harga,diskon,no_transaksi) SELECT kode_barang,jumlah_beli,harga,diskon,(SELECT MAX(no_transaksi) FROM transaksi_jual) FROM temp_transaksi_jual");
+    $insert_transaksi = mysql_query("INSERT INTO transaksi_jual VALUES (null,date(now()),0,'$id_admin')");
+    $insert_detail = mysql_query("INSERT INTO detail_transaksi_jual (kode_barang,jumlah_beli,harga,no_transaksi) SELECT kode_barang,jumlah_beli,harga,(SELECT MAX(no_transaksi) FROM transaksi_jual) FROM temp_transaksi_jual");
     $delete = mysql_query("DELETE FROM temp_transaksi_jual");
-    #total_kotor
-    $total_kotor = mysql_query("SELECT SUM(harga * jumlah_beli) FROM detail_transaksi_jual where no_transaksi = (SELECT MAX(no_transaksi) FROM transaksi_jual)");
-    $data_total_kotor=mysql_fetch_array($total_kotor);
-    #diskon_total
-    $diskon_total = mysql_query("SELECT SUM(jumlah_beli * (harga * diskon)) FROM detail_transaksi_jual where no_transaksi = (SELECT MAX(no_transaksi) FROM transaksi_jual)");
-    $data_diskon_total = mysql_fetch_array($diskon_total);
     #total
-    $total = mysql_query("SELECT (SUM(harga * jumlah_beli) + SUM(jumlah_beli * (harga * diskon))) FROM detail_transaksi_jual WHERE no_transaksi = (SELECT MAX(no_transaksi) FROM transaksi_jual)");
+    $total = mysql_query("SELECT SUM(harga * jumlah_beli) FROM detail_transaksi_jual WHERE no_transaksi = (SELECT MAX(no_transaksi) FROM transaksi_jual)");
     $data_total = mysql_fetch_array($total);
     $max = mysql_query("SELECT MAX(no_transaksi) FROM transaksi_jual");
     $data_max = mysql_fetch_array($max);
-    $update = mysql_query("UPDATE transaksi_jual SET total_kotor = $data_total_kotor[0],diskon_total = $data_diskon_total[0], total = $data_total[0] where no_transaksi = $data_max[0]");
+    $update = mysql_query("UPDATE transaksi_jual SET total = $data_total[0] where no_transaksi = $data_max[0]");
     if($insert_transaksi && $insert_detail && $delete && $update){
         header("location:../../index.php?modul=transaksi_penjualan&submodul=tambah_transaksi&result=success");
     } else {
@@ -93,17 +87,12 @@ function hapus_detail_transaksi_jual($id,$no_transaksi,$jumlah,$kode_barang){
     $data_check = mysql_fetch_array($check);
     if($data_check == null)
     {
-        $update = mysql_query("UPDATE transaksi_jual SET total_kotor = 0,  
-        diskon_total = 0,
-        total = 0 WHERE no_transaksi = $no_transaksi");
+        $update = mysql_query("UPDATE transaksi_jual total = 0 WHERE no_transaksi = $no_transaksi");
     }
     else
     {
-        $update = mysql_query("UPDATE transaksi_jual SET total_kotor = 
-        (SELECT SUM(jumlah_beli * harga) FROM detail_transaksi_jual WHERE no_transaksi = $no_transaksi),  
-        diskon_total = 
-        (SELECT SUM(jumlah_beli * (harga * diskon)) FROM detail_transaksi_jual WHERE no_transaksi = $no_transaksi),
-        total = total_kotor - diskon_total WHERE no_transaksi = $no_transaksi");
+        $update = mysql_query("UPDATE transaksi_jual SET
+        total = (SELECT SUM(jumlah_beli * harga) FROM detail_transaksi_jual WHERE no_transaksi = $no_transaksi) WHERE no_transaksi = $no_transaksi");
     }
     $update_barang = mysql_query("UPDATE barang SET jumlah = jumlah + $jumlah where kode_barang = '$kode_barang'");
     if($delete && $update && $update_barang){
@@ -121,7 +110,7 @@ function tambah_detail_transaksi($kode_barang,$jumlah,$no_transaksi){
     }
     else
     {
-        $insert = mysql_query("INSERT INTO temp_transaksi_jual VALUES(null,'$kode_barang',$jumlah,(SELECT harga_jual from barang where kode_barang = '$kode_barang'),0)");
+        $insert = mysql_query("INSERT INTO temp_transaksi_jual VALUES(null,'$kode_barang',$jumlah,(SELECT harga_jual from barang where kode_barang = '$kode_barang'))");
         $update = mysql_query("UPDATE barang SET jumlah = jumlah - $jumlah where kode_barang = '$kode_barang'");
         if($insert && $update){
             header("location:../../index.php?modul=transaksi_penjualan&submodul=tambah_detail_transaksi&no_transaksi=$no_transaksi");
@@ -132,18 +121,12 @@ function tambah_detail_transaksi($kode_barang,$jumlah,$no_transaksi){
 }
 
 function simpan_tambah_detail_transaksi($id_admin, $no_transaksi){
-    $insert_detail = mysql_query("INSERT INTO detail_transaksi_jual (kode_barang,jumlah_beli,harga,diskon,no_transaksi) SELECT kode_barang,jumlah_beli,harga,diskon,$no_transaksi FROM temp_transaksi_jual");
+    $insert_detail = mysql_query("INSERT INTO detail_transaksi_jual (kode_barang,jumlah_beli,harga,no_transaksi) SELECT kode_barang,jumlah_beli,harga,$no_transaksi FROM temp_transaksi_jual");
     $delete = mysql_query("DELETE FROM temp_transaksi_jual");
-    #total_kotor
-    $total_kotor = mysql_query("SELECT SUM(harga * jumlah_beli) FROM detail_transaksi_jual where no_transaksi = $no_transaksi");
-    $data_total_kotor=mysql_fetch_array($total_kotor);
-    #diskon_total
-    $diskon_total = mysql_query("SELECT SUM(jumlah_beli * (harga * diskon)) FROM detail_transaksi_jual where no_transaksi = $no_transaksi");
-    $data_diskon_total = mysql_fetch_array($diskon_total);
     #total
-    $total = mysql_query("SELECT (SUM(harga * jumlah_beli) + SUM(jumlah_beli * (harga * diskon))) FROM detail_transaksi_jual WHERE no_transaksi = $no_transaksi");
+    $total = mysql_query("SELECT SUM(harga * jumlah_beli) FROM detail_transaksi_jual WHERE no_transaksi = $no_transaksi");
     $data_total = mysql_fetch_array($total);
-    $update = mysql_query("UPDATE transaksi_jual SET total_kotor = $data_total_kotor[0],diskon_total = $data_diskon_total[0], total = $data_total[0] where no_transaksi = $no_transaksi");
+    $update = mysql_query("UPDATE transaksi_jual SET total = $data_total[0] where no_transaksi = $no_transaksi");
     if($insert_detail && $delete && $update){
         header("location:../../index.php?modul=transaksi_penjualan&submodul=detail_penjualan&result=success_t&no_transaksi=$no_transaksi");
     } else {

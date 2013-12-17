@@ -4,8 +4,8 @@
     </div>
 
     <div class="search">
-        <form action="index.php?modul=transaksi_penjualan&submodul=cari_detail_penjualan&cari=32" method="get" enctype="multipart/form-data">
-            <input type="text" name="cari" placeholder="search..."/>
+        <form action="#" method="post">
+            <input type="text" placeholder="search..."/>
             <button type="submit"><span class="i-calendar"></span></button>
             <button type="submit"><span class="i-magnifier"></span></button>
         </form>
@@ -72,22 +72,24 @@
                             <th width="15%">Nama Barang</th>
                             <th width="7%">Jumlah</th>
                             <th width="15%">Harga</th>
+                            <th width="10%">Diskon</th>
                             <th width="10%">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                         $no_transaksi_am = "";
-                        if(isset($_GET['no_transaksi'])){
-                            $no_transaksi_am = $_GET['no_transaksi'];
+                        if(isset($_GET['cari'])){
+                            $no_transaksi_am = $_GET['cari'];
                         }
 
                         $select = mysql_query("SELECT transaksi_jual.`no_transaksi`,barang.`nama_barang`, transaksi_jual.`tanggal_transaksi`, 
-                        detail_transaksi_jual.`jumlah_beli`, detail_transaksi_jual.`harga`, detail_transaksi_jual.`id`, barang.`kode_barang`
+                        detail_transaksi_jual.`jumlah_beli`, detail_transaksi_jual.`harga`, 
+                        detail_transaksi_jual.`diskon`, detail_transaksi_jual.`id`, barang.`kode_barang`
                         FROM transaksi_jual 
                         JOIN detail_transaksi_jual USING(no_transaksi)
                         JOIN barang USING(kode_barang)
-                        WHERE no_transaksi = '$no_transaksi_am'");
+                        WHERE no_transaksi LIKE '%$no_transaksi_am%'");
 
                         while($data = mysql_fetch_array($select)){
                             echo '<tr>';
@@ -95,8 +97,9 @@
                             echo '<td>'.$data[1].'</td>';
                             echo '<td>'.$data[3].'</td>';
                             echo '<td>Rp. '.$data[4].'</td>';
+                            echo '<td>'.$data[5].'</td>';
                             echo '<td>
-                                <a style="cursor: pointer" onclick=hapusDetailTransaksiJual("'.$data[5].'","'.$data[0].'","'.$data[3].'","'.$data[6].'","'.str_replace(' ','_',$data[1]).'")><img src="img/icons/cross-script.png">Hapus</a>
+                                <a style="cursor: pointer" onclick=hapusDetailTransaksiJual("'.$data[6].'","'.$data[0].'","'.$data[3].'","'.$data[7].'","'.str_replace(' ','_',$data[1]).'")><img src="img/icons/cross-script.png">Hapus</a>
                             </td>';
                             echo '</tr>';
                         }

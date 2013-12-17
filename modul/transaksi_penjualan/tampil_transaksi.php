@@ -74,8 +74,6 @@
                         <tr>
                             <th width="6%">No</th>
                             <th width="10%">No Transaksi</th>
-                            <th width="10%">Total Kotor</th>
-                            <th width="7%">Diskon</th>
                             <th width="10%">Total</th>
                             <th width="10%">Tanggal Transaksi</th>
                             <th width="15%">ID User</th>
@@ -106,10 +104,8 @@
                                     echo '<td>'.$i.'</td>';
                                     echo '<td>'.$data[0].'</td>';
                                     echo '<td>Rp. '.$data[2].'</td>';
-                                    echo '<td>Rp. '.$data[3].'</td>';
-                                    echo '<td>Rp. '.$data[4].'</td>';
                                     echo '<td>'.$data[1].'</td>';
-                                    echo '<td>'.$data[5].'</td>';
+                                    echo '<td>'.$data[3].'</td>';
                                     echo '<td>
                                         <a style="cursor: pointer" onclick=hapusTransaksiJual("'.$data[0].'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
                                         <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi='.$data[0].'"><img src="img/filetree/application.png">Detail</a>
@@ -126,10 +122,8 @@
                             echo '<td>'.$i.'</td>';
                             echo '<td>'.$data[0].'</td>';
                             echo '<td>Rp. '.$data[2].'</td>';
-                            echo '<td>Rp. '.$data[3].'</td>';
-                            echo '<td>Rp. '.$data[4].'</td>';
                             echo '<td>'.$data[1].'</td>';
-                            echo '<td>'.$data[5].'</td>';
+                            echo '<td>'.$data[3].'</td>';
                             echo '<td>
                                 <a style="cursor: pointer" onclick=hapusTransaksiJual("'.$data[0].'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
                                 <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi='.$data[0].'"><img src="img/filetree/application.png">Detail</a>

@@ -109,14 +109,13 @@ $no_transaksi_am = $_GET['no_transaksi'];
                                                     <th width="15%">Barang</th>
                                                     <th width="10%">Jumlah</th>
                                                     <th width="10%">Harga</th>
-                                                    <th width="10%">Diskon</th>
                                                     <th width="10%">Aksi</th>                    
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
                                                 $select = mysql_query("SELECT barang.`nama_barang`, temp_transaksi_jual.`jumlah_beli`, 
-                                                temp_transaksi_jual.`harga`, temp_transaksi_jual.`diskon`, temp_transaksi_jual.`id`, barang.`kode_barang`
+                                                temp_transaksi_jual.`harga`, temp_transaksi_jual.`id`, barang.`kode_barang`
                                                 FROM temp_transaksi_jual 
                                                 JOIN barang USING (kode_barang)");
                                                 $i = 1;
@@ -126,9 +125,8 @@ $no_transaksi_am = $_GET['no_transaksi'];
                                                     echo '<td>'.$data[0].'</td>';
                                                     echo '<td>'.$data[1].'</td>';
                                                     echo '<td>Rp. '.$data[2].'</td>';
-                                                    echo '<td>'.$data[3].'</td>';
                                                     echo '<td>
-                                                        <a style="cursor: pointer" onclick=hapusTambahDetailTransaksi("'.$data[4].'","'.$data[1].'","'.$data[5].'","'.$no_transaksi_am.'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
+                                                        <a style="cursor: pointer" onclick=hapusTambahDetailTransaksi("'.$data[3].'","'.$data[1].'","'.$data[4].'","'.$no_transaksi_am.'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
                                                     </td>';
                                                     echo '</tr>';
                                                     $i++;
