@@ -32,26 +32,7 @@ CREATE TABLE `detail_transaksi_jual` (
   KEY `id` (`id`),
   CONSTRAINT `detail_transaksi_jual_ibfk_3` FOREIGN KEY (`no_transaksi`) REFERENCES `transaksi_jual` (`no_transaksi`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `detail_transaksi_jual_ibfk_4` FOREIGN KEY (`kode_barang`) REFERENCES `barang` (`kode_barang`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
-
-/*Data for the table `detail_transaksi_jual` */
-
-insert  into `detail_transaksi_jual`(`id`,`no_transaksi`,`kode_barang`,`jumlah_beli`,`harga`) values (1,32,'KP001',8,1000),(2,32,'KP002',3,1000),(4,33,'KP002',3,1000),(5,33,'KP001',4,1000),(7,34,'KP002',3,1000),(10,34,'KP002',4,1000),(11,34,'KP003',4,2500),(13,36,'KP002',3,1000),(17,36,'KP003',5,2500),(18,36,'KP002',7,1000),(20,33,'KP002',6,1000),(21,33,'KP001',4,1000),(23,38,'KP001',3,1000),(24,38,'KP003',2,2500),(26,39,'KP002',4,1000),(27,39,'KP001',1,1000);
-
-/*Table structure for table `temp_transaksi_jual` */
-
-DROP TABLE IF EXISTS `temp_transaksi_jual`;
-
-CREATE TABLE `temp_transaksi_jual` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kode_barang` varchar(8) DEFAULT NULL,
-  `jumlah_beli` int(11) DEFAULT NULL,
-  `harga` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `kode_barang` (`kode_barang`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-
-/*Data for the table `temp_transaksi_jual` */
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `transaksi_jual` */
 
@@ -65,11 +46,7 @@ CREATE TABLE `transaksi_jual` (
   PRIMARY KEY (`no_transaksi`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `transaksi_jual_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
-
-/*Data for the table `transaksi_jual` */
-
-insert  into `transaksi_jual`(`no_transaksi`,`tanggal_transaksi`,`total`,`id_user`) values (32,'2013-12-10',11000,'admin'),(33,'2013-12-10',17000,'admin'),(34,'2013-12-11',17000,'admin'),(36,'2013-12-16',22500,'admin'),(38,'2013-12-18',8000,'admin'),(39,'2013-12-18',5000,'admin');
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

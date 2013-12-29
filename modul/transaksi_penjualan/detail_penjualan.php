@@ -4,11 +4,7 @@
     </div>
 
     <div class="search">
-        <form action="index.php?modul=transaksi_penjualan&submodul=cari_detail_penjualan&cari=32" method="get" enctype="multipart/form-data">
-            <input type="text" name="cari" placeholder="search..."/>
-            <button type="submit"><span class="i-calendar"></span></button>
-            <button type="submit"><span class="i-magnifier"></span></button>
-        </form>
+        
     </div>
 </div>
 <div class="content">
@@ -97,6 +93,7 @@
                             echo '<td>Rp. '.$data[4].'</td>';
                             echo '<td>
                                 <a style="cursor: pointer" onclick=hapusDetailTransaksiJual("'.$data[5].'","'.$data[0].'","'.$data[3].'","'.$data[6].'","'.str_replace(' ','_',$data[1]).'")><img src="img/icons/cross-script.png">Hapus</a>
+                                <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=ubah_detail_transaksi&no_transaksi='.$data[0].'&id='.$data[5].'&kode_barang='.$data[6].'"><img src="img/filetree/application.png">Ubah</a>
                             </td>';
                             echo '</tr>';
                         }
@@ -105,6 +102,7 @@
                     </table>
                     <div class="footer">
                     <div class="side fr">
+                        <a href="index.php?modul=transaksi_penjualan&submodul=tampil_transaksi" class="btn btn-primary" type="button" style="padding: 4px 15px 4px 15px">Kembali</a>
                         <a href="index.php?modul=transaksi_penjualan&submodul=tambah_detail_transaksi&no_transaksi=<?php echo $no_transaksi_am ?>" class="btn btn-primary" type="button" style="padding: 4px 15px 4px 15px">Tambah</a>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 <?php
+$id_admin = "admin";
 $no_transaksi_am = "";
 if(isset($_GET['no_transaksi'])){
 $no_transaksi_am = $_GET['no_transaksi'];
@@ -10,11 +11,7 @@ $no_transaksi_am = $_GET['no_transaksi'];
     </div>
 
     <div class="search">
-        <form action="#" method="post">
-            <input type="text" nama="cari" value='32' placeholder="search..."/>
-            <button type="submit"><span class="i-calendar"></span></button>
-            <button type="submit"><span class="i-magnifier"></span></button>
-        </form>
+        
     </div>
 </div>
 <div class="content">
@@ -88,6 +85,9 @@ $no_transaksi_am = $_GET['no_transaksi'];
                 </div>
             </div>
             </form>
+            <?php
+             if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '$id_admin'")) == 1) {
+             ?>
             <form action="modul/transaksi_penjualan/action_penjualan.php" method="get" enctype="multipart/form-data">
                             <div class="block">
                                     <div class="head">
@@ -114,11 +114,12 @@ $no_transaksi_am = $_GET['no_transaksi'];
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $select = mysql_query("SELECT barang.`nama_barang`, temp_transaksi_jual.`jumlah_beli`, 
-                                                temp_transaksi_jual.`harga`, temp_transaksi_jual.`id`, barang.`kode_barang`
-                                                FROM temp_transaksi_jual 
+                                                $select = mysql_query("SELECT barang.`nama_barang`, $id_admin.`jumlah_beli`, 
+                                                $id_admin.`harga`, $id_admin.`id`, barang.`kode_barang`
+                                                FROM $id_admin 
                                                 JOIN barang USING (kode_barang)");
                                                 $i = 1;
+
                                                 while($data = mysql_fetch_array($select)){
                                                     echo '<tr>';
                                                     echo '<td>'.$i.'</td>';
@@ -131,10 +132,12 @@ $no_transaksi_am = $_GET['no_transaksi'];
                                                     echo '</tr>';
                                                     $i++;
                                                 }
+                                               
                                                 ?>
                                                           
                                             </tbody>
-                                        </table>                                        
+                                        </table>     
+                                                                         
                                         <div class="footer">
                                             <div class="side fr">
                                             <input type="submit" class="btn btn-primary" value="Simpan">
@@ -143,6 +146,10 @@ $no_transaksi_am = $_GET['no_transaksi'];
                                     </div>
                             </div>
             </form>
+            <?php
+            }
+            else{}
+            ?>  
         </div>
 
     </div>

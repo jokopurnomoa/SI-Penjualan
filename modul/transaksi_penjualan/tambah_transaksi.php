@@ -4,11 +4,7 @@
     </div>
 
     <div class="search">
-        <form action="#" method="post">
-            <input type="text" placeholder="search..."/>
-            <button type="submit"><span class="i-calendar"></span></button>
-            <button type="submit"><span class="i-magnifier"></span></button>
-        </form>
+        
     </div>
 </div>
 <div class="content">
@@ -16,6 +12,7 @@
         <!-- Code Here -->
 <div class="span8">
             <?php
+            $id_admin = "admin";
             $result = "";
             if(isset($_GET['result'])){
                 $result = $_GET['result'];
@@ -78,6 +75,9 @@
                 </div>
             </div>
             </form>
+            <?php
+             if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '$id_admin'")) == 1) {
+             ?>
             <form action="modul/transaksi_penjualan/action_penjualan.php" method="get" enctype="multipart/form-data">
                             <div class="block">
                                     <div class="head">
@@ -103,9 +103,9 @@
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $select = mysql_query("SELECT barang.`nama_barang`, temp_transaksi_jual.`jumlah_beli`, 
-                                                temp_transaksi_jual.`harga`, temp_transaksi_jual.`id`, barang.`kode_barang`
-                                                FROM temp_transaksi_jual 
+                                                $select = mysql_query("SELECT barang.`nama_barang`, $id_admin.`jumlah_beli`, 
+                                                $id_admin.`harga`, $id_admin.`id`, barang.`kode_barang`
+                                                FROM $id_admin
                                                 JOIN barang USING (kode_barang)");
                                                 $i = 1;
                                                 while($data = mysql_fetch_array($select)){
@@ -132,6 +132,10 @@
                                     </div>
                             </div>
             </form>
+            <?php
+            }
+            else{}
+            ?>  
         </div>
 
     </div>
