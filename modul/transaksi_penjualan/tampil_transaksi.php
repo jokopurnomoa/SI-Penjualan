@@ -1,3 +1,11 @@
+<?php
+
+$id_admin="admin";
+if(isset($_SESSION['id_admin'])){
+    
+    $id_admin = $_SESSION['id_admin'];
+}
+?>
 <div class="head">
     <div class="info">
         <h1>Tampil Transaksi</h1>
@@ -106,9 +114,12 @@
                                     echo '<td>Rp. '.$data[2].'</td>';
                                     echo '<td>'.$data[1].'</td>';
                                     echo '<td>'.$data[3].'</td>';
-                                    echo '<td>
-                                        <a style="cursor: pointer" onclick=hapusTransaksiJual("'.$data[0].'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
-                                        <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi='.$data[0].'"><img src="img/filetree/application.png">Detail</a>
+                                    echo '<td>';
+                                    if ($id_admin == "admin")
+                                    {
+                                    echo '<a style="cursor: pointer" onclick=hapusTransaksiJual("'.$data[0].'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>&nbsp';
+                                    }
+                                    echo '<a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi='.$data[0].'"><img src="img/filetree/application.png">Detail</a>
                                     </td>';
                                     echo '</tr>';
                                     $i++;
@@ -124,9 +135,12 @@
                             echo '<td>Rp. '.$data[2].'</td>';
                             echo '<td>'.$data[1].'</td>';
                             echo '<td>'.$data[3].'</td>';
-                            echo '<td>
-                                <a style="cursor: pointer" onclick=hapusTransaksiJual("'.$data[0].'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>
-                                <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi='.$data[0].'"><img src="img/filetree/application.png">Detail</a>
+                            echo '<td>';
+                            if ($id_admin == "admin")
+                            {
+                            echo '<a style="cursor: pointer" onclick=hapusTransaksiJual("'.$data[0].'","'.str_replace(' ','_',$data[0]).'")><img src="img/icons/cross-script.png">Hapus</a>&nbsp';
+                            }
+                            echo '<a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=detail_penjualan&no_transaksi='.$data[0].'"><img src="img/filetree/application.png">Detail</a>
                             </td>';
                             echo '</tr>';
                             $i++;

@@ -1,3 +1,11 @@
+<?php
+
+$id_admin="admin";
+if(isset($_SESSION['id_admin'])){
+    
+    $id_admin = $_SESSION['id_admin'];
+}
+?>
 <div class="head">
     <div class="info">
         <h1>Detail Transaksi Penjualan</h1>
@@ -91,9 +99,11 @@
                             echo '<td>'.$data[1].'</td>';
                             echo '<td>'.$data[3].'</td>';
                             echo '<td>Rp. '.$data[4].'</td>';
-                            echo '<td>
-                                <a style="cursor: pointer" onclick=hapusDetailTransaksiJual("'.$data[5].'","'.$data[0].'","'.$data[3].'","'.$data[6].'","'.str_replace(' ','_',$data[1]).'")><img src="img/icons/cross-script.png">Hapus</a>
-                                <a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=ubah_detail_transaksi&no_transaksi='.$data[0].'&id='.$data[5].'&kode_barang='.$data[6].'"><img src="img/filetree/application.png">Ubah</a>
+                            echo '<td>';
+                            if ($id_admin == "admin") {
+                            echo '<a style="cursor: pointer" onclick=hapusDetailTransaksiJual("'.$data[5].'","'.$data[0].'","'.$data[3].'","'.$data[6].'","'.str_replace(' ','_',$data[1]).'")><img src="img/icons/cross-script.png">Hapus</a>&nbsp';
+                            }
+                            echo '<a style="cursor: pointer" href="index.php?modul=transaksi_penjualan&submodul=ubah_detail_transaksi&no_transaksi='.$data[0].'&id='.$data[5].'&kode_barang='.$data[6].'"><img src="img/filetree/application.png">Ubah</a>
                             </td>';
                             echo '</tr>';
                         }
